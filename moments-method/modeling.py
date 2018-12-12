@@ -27,8 +27,23 @@ def G(y, a):
         return -np.log(y / c - 2 * np.exp(-a) -a)
     return y / c - np.exp(-a) - a
 
-
+fi = [lambda a : np.]
 # Метод дискретной декомпозиции
-# F(x) = c e^{t}, t < -a
-#
+# F1(x) = a_1 c e^{t}, t < -a, p1 = 1 / a1 =  (c e^{-a})
+# F2(t) = a_2 (c e^{-a} + c (t + a)), t \in [-a; a], p2 = 1 /  a2 = (2ca)
+# F3(t) = a_3 (2 c e^{-a} + 2 c a - c e ^{-t}), t > a, p3 = 1 - p2 - p3
+def discreate_decomposition(a):
+    c = C(a)
+    p1 = c * np.exp(-a)
+    print(p1)
+    p2 = 2 * c * a
+    p3 = 1 - p1 - p2
+    p = np.array([p1, p2, p3])
+    p_res = np.random.choice([1, 2, 3], 1, p=p)[0]
+    return  {
+        1 : -np.random.exponential(a),
+        2 : np.random.uniform(-a, a),
+        3 : np.random.exponential(a)
+    }[p_res]
+
 
